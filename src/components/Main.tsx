@@ -1,9 +1,11 @@
 import React from 'react';
 import Products from './Products';
 import SearchBar from './SearchBar';
+import Preloader from './Preloader';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 
 class Main extends React.Component {
     
@@ -36,9 +38,19 @@ class Main extends React.Component {
         return (
             <Container>
                 <SearchBar />
-                <Products products={this.state.products}/>
-                <Pagination sx={{width: 'fit-content', margin: 'auto'}} count={this.state.pagesNumber} page={this.state.page} onChange={(event: React.ChangeEvent<unknown>,value:number) => {this.setState({page: value})}} />
-            </Container>
+                {
+                    this.state.loading ? <Preloader/> :
+                    ( <Box>
+                        <Products products={this.state.products}/>
+                        <Pagination 
+                            sx={{width: 'fit-content', margin: 'auto'}} 
+                            count={this.state.pagesNumber} 
+                            page={this.state.page} 
+                            onChange={(event: React.ChangeEvent<unknown>,value:number) => {this.setState({page: value})}} />
+                    </Box>
+                     )
+                }
+                            </Container>
         );
     }
 }
