@@ -23,6 +23,7 @@ class Products extends React.Component<ProductsProps> {
         
     render() {
         return (
+            
             <Box sx={{minHeight: 350}}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">

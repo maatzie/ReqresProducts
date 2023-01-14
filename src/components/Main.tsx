@@ -6,6 +6,7 @@ import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
+import NothingFound from './NothingFound';
 
 class Main extends React.Component {
     
@@ -27,7 +28,7 @@ class Main extends React.Component {
     }
 
     componentDidMount(): void {
-        this.getProducts(2);
+        this.getProducts(this.state.page);
     }
 
     componentDidUpdate(): void {
@@ -40,6 +41,7 @@ class Main extends React.Component {
                 <SearchBar />
                 {
                     this.state.loading ? <Preloader/> :
+                    this.state.products.length ?
                     ( <Box>
                         <Products products={this.state.products}/>
                         <Pagination 
@@ -48,7 +50,7 @@ class Main extends React.Component {
                             page={this.state.page} 
                             onChange={(event: React.ChangeEvent<unknown>,value:number) => {this.setState({page: value})}} />
                     </Box>
-                     )
+                     ) : <NothingFound/>
                 }
                             </Container>
         );
