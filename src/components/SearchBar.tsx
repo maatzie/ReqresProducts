@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
@@ -28,43 +28,35 @@ interface SearchBarProps {
 interface SearchBarState {
     inputText: string,
 }; 
-class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
-    constructor(props: SearchBarProps) {
-        super(props);
-        const updateProducts = props.setId;
-        this.state = {
-            inputText: '',
-        }
-    }
+function SearchBar(props: SearchBarProps) {
+    const [inputText, setInputText] = useState('');
 
-    inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredID = event.target.value;
         if (RegExp('^[0-9]+$').test(enteredID) || enteredID === '') {
-            this.setState({inputText: enteredID});
+            setInputText(enteredID);
         }
     };
 
-    searchHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const searchHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.code === 'Enter') {
-            console.log(this.state.inputText);
-            this.props.setId(this.state.inputText);
+            console.log(inputText);
+            props.setId(inputText);
         }
     };
 
-    render() {
-        return (
-            <Search>
-                <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-                <SearchInput
-                    value={this.state.inputText}
-                    placeholder="Search products"
-                    inputProps={{ 'aria-label': 'search', 'onChange' : this.inputHandler, 'onKeyDown' : this.searchHandler}}
-                />
-            </Search>
-        );
-    }
+    return (
+        <Search>
+            <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+            <SearchInput
+                value={inputText}
+                placeholder="Search products"
+                inputProps={{ 'aria-label': 'search', 'onChange' : inputHandler, 'onKeyDown' : searchHandler}}
+            />
+        </Search>
+    );
 }
 
 export default SearchBar
