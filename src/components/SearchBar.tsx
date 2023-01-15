@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import autocompleteClasses from '@mui/material/Autocomplete/autocompleteClasses';
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(1, 0),
@@ -24,7 +23,7 @@ const SearchInput = styled(InputBase)(({ theme }) => ({
 
  
 interface SearchBarProps {
-
+    setId: Function,
 };  
 interface SearchBarState {
     inputText: string,
@@ -32,6 +31,7 @@ interface SearchBarState {
 class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
     constructor(props: SearchBarProps) {
         super(props);
+        const updateProducts = props.setId;
         this.state = {
             inputText: '',
         }
@@ -46,8 +46,8 @@ class SearchBar extends React.Component<SearchBarProps, SearchBarState> {
 
     searchHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.code === 'Enter') {
-            console.log("Search");
-            
+            console.log(this.state.inputText);
+            this.props.setId(this.state.inputText);
         }
     };
 

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Link, MemoryRouter, Route, Routes, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Products from './Products';
 import SearchBar from './SearchBar';
 import Preloader from './Preloader';
@@ -10,15 +10,21 @@ import Box from '@mui/material/Box';
 import NothingFound from './NothingFound';
 
 function Main() {
-    const [products, setProducts] = useState([]);
+    let [products, setProducts] = useState<any[]>([]);;
     const [page, setPage] = useState(1);
+    const [id, setId] = useState('');
     const [pagesNumber, setPagesNumber] = useState(1);
     const [loading, setLoading] = useState(true);
 
-    const getProducts = (page: number) => {
-        fetch(`https://reqres.in/api/products?page=${page}&per_page=5`)
+    const getProducts = (page: number, id: string) => {
+        fetch(`https://reqres.in/api/products?page=${page}&per_page=5&id=${id}`)
         .then((data) => data.json())
-            .then((data) => {setProducts(data.data); setLoading(false); setPagesNumber(data.total_pages);})
+            .then((data) => {
+                !data.data ? setProducts([]) : 
+                data.data instanceof Array ? setProducts(data.data) : setProducts([data.data]);
+                
+                setLoading(false); 
+                setPagesNumber(data.total_pages);})
             .catch((error) => {
                 console.error(error);
                 setLoading(false);
@@ -26,22 +32,22 @@ function Main() {
     };
 
     useEffect(() => {
-        getProducts(page);
-    }, [page]);
+        getProducts(page, id);
+    }, [page, id]);
 
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const currentPage = parseInt(query.get('page') || '1', 10);
+    
     if(currentPage !== page) {
         setPage(currentPage);
-    }
+    }  
 
-    //setPage(currentPage);
-    console.log(products);    
+    //console.log(products.length)
 
     return (
         <Container>
-            <SearchBar />
+            <SearchBar setId={setId}/>
             {
                 loading ? <Preloader/> :
                 products.length ?
@@ -62,7 +68,7 @@ function Main() {
                 </Box>
                  ) : <NothingFound/>
             }
-                        </Container>
+        </Container>
     );
 }
 
