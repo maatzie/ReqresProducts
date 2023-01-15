@@ -38,16 +38,18 @@ function Main() {
     const location = useLocation();
     const query = new URLSearchParams(location.search);
     const currentPage = parseInt(query.get('page') || '1', 10);
+    const currentId = query.get('id') || '';
     
     if(currentPage !== page) {
         setPage(currentPage);
     }  
-
-    //console.log(products.length)
+    if(currentId !== id) {
+        setId(currentId);
+    }
 
     return (
         <Container>
-            <SearchBar setId={setId}/>
+            <SearchBar/>
             {
                 loading ? <Preloader/> :
                 products.length ?

@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
+import { idText } from 'typescript';
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
     padding: theme.spacing(1, 0),
@@ -20,16 +22,10 @@ const Search = styled(Paper)(({ theme }) => ({
 const SearchInput = styled(InputBase)(({ theme }) => ({
     width: '100%'
   }));
-
  
-interface SearchBarProps {
-    setId: Function,
-};  
-interface SearchBarState {
-    inputText: string,
-}; 
-function SearchBar(props: SearchBarProps) {
+function SearchBar() {
     const [inputText, setInputText] = useState('');
+    const navigate = useNavigate();
 
     const inputHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const enteredID = event.target.value;
@@ -40,8 +36,10 @@ function SearchBar(props: SearchBarProps) {
 
     const searchHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.code === 'Enter') {
-            console.log(inputText);
-            props.setId(inputText);
+            inputText ? navigate({
+                pathname: '/',
+                search: `?id=${inputText}`,
+              }) : navigate({pathname: '/'});
         }
     };
 
