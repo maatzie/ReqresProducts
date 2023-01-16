@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductModal from './ProductModal';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -20,10 +21,18 @@ interface ProductsProps {
 };
 
 class Products extends React.Component<ProductsProps> {
+    state = {
+        descriptionOpened: false,
+        selectedProduct: {},
+    }
+    handleOpen = (product: Object) => {console.log(product); this.setState({descriptionOpened: true, selectedProduct: product})};
+    handleClose = () => this.setState({descriptionOpened: false});
         
+    
+    
     render() {
         return (
-            
+            <div>
             <Box sx={{minHeight: 350}}>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -39,6 +48,7 @@ class Products extends React.Component<ProductsProps> {
                             <TableRow
                             key={row.name}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 }, "backgroundColor": row.color }}
+                            onClick={() => this.handleOpen({...row})}
                             >
                             <TableCell component="th" scope="row">
                                 {row.id}
@@ -51,6 +61,8 @@ class Products extends React.Component<ProductsProps> {
                     </Table>
                 </TableContainer>
             </Box>
+            <ProductModal opened={this.state.descriptionOpened} onClose={this.handleClose} {...this.state.selectedProduct}/>
+            </div>
         );
     }
 }
