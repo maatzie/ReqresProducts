@@ -25,7 +25,7 @@ class Products extends React.Component<ProductsProps> {
         descriptionOpened: false,
         selectedProduct: {},
     }
-    handleOpen = (product: Object) => {console.log(product); this.setState({descriptionOpened: true, selectedProduct: product})};
+    handleOpen = (product: Object) => {this.setState({descriptionOpened: true, selectedProduct: product})};
     handleClose = () => this.setState({descriptionOpened: false});
         
     

@@ -37,9 +37,8 @@ function SearchBar() {
     const searchHandler = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.code === 'Enter') {
             inputText ? navigate({
-                pathname: '/',
                 search: `?id=${inputText}`,
-              }) : navigate({pathname: '/'});
+              }) : navigate({search: ``});
         }
     };
 
