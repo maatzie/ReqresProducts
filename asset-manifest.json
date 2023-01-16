@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ReqresProducts/static/css/main.e6c13ad2.css",
-    "main.js": "/ReqresProducts/static/js/main.fe71d63b.js",
+    "main.js": "/ReqresProducts/static/js/main.d6c3592d.js",
     "static/js/787.39abf1ed.chunk.js": "/ReqresProducts/static/js/787.39abf1ed.chunk.js",
     "index.html": "/ReqresProducts/index.html",
     "main.e6c13ad2.css.map": "/ReqresProducts/static/css/main.e6c13ad2.css.map",
-    "main.fe71d63b.js.map": "/ReqresProducts/static/js/main.fe71d63b.js.map",
+    "main.d6c3592d.js.map": "/ReqresProducts/static/js/main.d6c3592d.js.map",
     "787.39abf1ed.chunk.js.map": "/ReqresProducts/static/js/787.39abf1ed.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.fe71d63b.js"
+    "static/js/main.d6c3592d.js"
   ]
 }
